@@ -11,9 +11,9 @@
 
 var React = require('react');
 
-var TodoApp = require('./components/TodoApp.react');
+var NukeboxApp = require('./components/NukeboxApp.react');
 
 React.renderComponent(
-  <TodoApp />,
-  document.getElementById('todoapp')
+  <NukeboxApp />,
+  document.getElementById('nukeboxapp')
 );
