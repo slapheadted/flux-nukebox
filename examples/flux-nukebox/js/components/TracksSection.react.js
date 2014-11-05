@@ -39,7 +39,7 @@ var TracksSection = React.createClass({
 
     return (
       <section id="tracks">
-        <ul id="todo-list">{tracks}</ul>
+        <ul id="track-list">{tracks}</ul>
       </section>
     );
   }

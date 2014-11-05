@@ -40,7 +40,7 @@ function play(id) {
 var TrackStore = merge(EventEmitter.prototype, {
 
   /**
-   * Get the entire collection of TODOs.
+   * Get the entire collection of Tracks.
    * @return {object}
    */
   getAll: function() {
