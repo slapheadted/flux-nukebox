@@ -1,5 +1,8 @@
 /** @jsx React.DOM */
+var nukeboxConfig = require('./nukebox.config.js')
+var $ = require('jquery');
 var React = require('react');
+var TrackStore = require('./js/stores/TrackStore.js');
 
 var TrackRow = React.createClass({
     render: function() {
@@ -37,6 +40,8 @@ var TrackTable = React.createClass({
 
 var SearchBar = React.createClass({
 	handleChange: function() {
+		console.log('text', this.props.filterText)
+		TrackActions.fetchTracks(this.props.filterText)
 		this.props.onUserInput(
 			this.refs.filterTextInput.getDOMNode().value
 		);
@@ -92,5 +97,7 @@ var TRACKS = [
 	{id: 2, artist: 'The Beatles', album: 'The White Album', title: 'Dear Prudence'},
 	{id: 3, artist: 'The Beatles', album: 'Let It Be', title: 'Hey Jude'}
 ];
+
+
  
 React.renderComponent(<FilterableTrackTable tracks={TRACKS} />, document.body);

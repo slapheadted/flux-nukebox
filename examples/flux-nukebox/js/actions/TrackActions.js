@@ -23,6 +23,13 @@ var TrackActions = {
       actionType: TrackConstants.TRACK_PLAY,
       id: id
     });
+  },
+
+  fetchTracks: function(needle) {
+    App.Dispatcher.handleViewAction({
+      actionType: TrackConstants.TRACK_FETCH,
+      needle: needle
+    })
   }
 
 };

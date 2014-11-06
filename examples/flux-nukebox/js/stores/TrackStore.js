@@ -21,16 +21,22 @@ var _tracks = {};
 /**
  * Fetch all tracks.
  */
-function fetch() {
+function fetch(needle) {
+  return $.ajax({
+    url: nukeboxConfig.apiUrl + 'needle'
+  }).done(function(tracks) {
+    _tracks = tracks;
+    TrackStore.emitChange();
+  })
   // Hand waving here -- not showing how this interacts with XHR or persistent
   // server-side storage.
-  _tracks = [{
-    id: 1,
-    title: "Hey Jude"
-  }, {
-    id: 2,
-    title: "Come Together"
-  }];
+  // _tracks = [{
+  //   id: 1,
+  //   title: "Hey Jude"
+  // }, {
+  //   id: 2,
+  //   title: "Come Together"
+  // }];
 }
 
 function play(id) {
@@ -43,9 +49,15 @@ var TrackStore = merge(EventEmitter.prototype, {
    * Get the entire collection of Tracks.
    * @return {object}
    */
-  getAll: function() {
-    fetch()
-    return _tracks;
+  getAll: function(needle) {
+    var self = this;
+
+    fetch(needle)
+      .done(function(tracks) {
+        self.emitChange();
+      }).fail(function(error) {
+        console.log('ERROR : ' + error)
+      })
   },
 
   emitChange: function() {
@@ -73,13 +85,17 @@ AppDispatcher.register(function(payload) {
   var text;
 
   switch(action.actionType) {
-    case TodoConstants.TRACK_PLAY:
+    case TrackConstants.TRACK_PLAY:
       id = action.text.trim();
       if (id !== '') {
         play(id);
       }
       break;
-
+    case TrackConstants.TRACK_FETCH:
+      if (needle !== '') {
+        fetch(action.needle);
+      }
+      break;
 
     default:
       return true;
