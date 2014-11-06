@@ -49,15 +49,8 @@ var TrackStore = merge(EventEmitter.prototype, {
    * Get the entire collection of Tracks.
    * @return {object}
    */
-  getAll: function(needle) {
-    var self = this;
-
-    fetch(needle)
-      .done(function(tracks) {
-        self.emitChange();
-      }).fail(function(error) {
-        console.log('ERROR : ' + error)
-      })
+  getAll: function() {
+    return _tracks;
   },
 
   emitChange: function() {
@@ -82,21 +75,11 @@ var TrackStore = merge(EventEmitter.prototype, {
 // Register to handle all updates
 AppDispatcher.register(function(payload) {
   var action = payload.action;
-  var text;
 
   switch(action.actionType) {
-    case TrackConstants.TRACK_PLAY:
-      id = action.text.trim();
-      if (id !== '') {
-        play(id);
-      }
+    case TrackConstants.RECEIVE_RAW_TRACKS:
+      _tracks = action.rawTracks;
       break;
-    case TrackConstants.TRACK_FETCH:
-      if (needle !== '') {
-        fetch(action.needle);
-      }
-      break;
-
     default:
       return true;
   }
