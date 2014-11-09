@@ -11,6 +11,17 @@ function getStateFromStores() {
     };
 }
 
+function filterBySearch(track, needle) {
+    if (track.title && track.title.indexOf(needle) > -1 ||
+        track.artist && track.artist.indexOf(needle) > -1 ||
+        track.album && track.album.indexOf(needle) > -1
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 var TrackTable = React.createClass({
     getInitialState: function() {
         return {
@@ -29,12 +40,13 @@ var TrackTable = React.createClass({
 
     render: function() {
         var rows = [];
+        
         if (this.state.tracks.length) {
             this.state.tracks.forEach(function(track) {
-            	// if (track.title.indexOf(this.props.filterText) === -1) { return; }
-                rows.push(<TrackRow track={track} key={track._id} />);
+            	filterBySearch(track, this.props.filterText) && rows.push(<TrackRow track={track} key={track._id} />);
             }.bind(this));
         }
+        
         return (
             <table>
                 <thead>

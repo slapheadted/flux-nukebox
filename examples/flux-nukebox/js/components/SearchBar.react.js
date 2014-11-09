@@ -11,10 +11,10 @@ var SearchBar = React.createClass({
             this.refs.filterTextInput.getDOMNode().value
         );
 
-        clearTimeout(window.searchBarDelay)
-        window.searchBarDelay = setTimeout(function() {
-            TrackActionCreators.fetchTracks(self.props.filterText)
-        }, 300);
+        // clearTimeout(window.searchBarDelay)
+        // window.searchBarDelay = setTimeout(function() {
+        //     TrackActionCreators.fetchTracks(self.props.filterText)
+        // }, 300);
 	},
 
     render: function() {
