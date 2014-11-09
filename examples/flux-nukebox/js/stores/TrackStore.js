@@ -14,6 +14,7 @@ var EventEmitter = require('events').EventEmitter;
 var TrackConstants = require('../constants/TrackConstants');
 var merge = require('react/lib/merge');
 
+var ActionTypes = TrackConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _tracks = [];
@@ -52,7 +53,7 @@ AppDispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.actionType) {
-    case TrackConstants.RECEIVE_TRACKS:
+    case ActionTypes.RECEIVE_TRACKS:
       _tracks = action.tracks;
       break;
     default:

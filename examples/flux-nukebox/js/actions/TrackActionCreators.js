@@ -20,7 +20,7 @@ module.exports = {
 	fetchTracks: function(needle) {
 		NukeboxWebAPIUtils.getTracks(needle);
 		AppDispatcher.handleServerAction({
-			type: ActionTypes.FETCH_TRACKS,
+			actionType: ActionTypes.FETCH_TRACKS,
 			needle: needle
 		});
 	}

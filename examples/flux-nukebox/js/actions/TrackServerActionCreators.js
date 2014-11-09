@@ -7,7 +7,7 @@ module.exports = {
 
   receiveTracks: function(tracks) {
     AppDispatcher.handleServerAction({
-      type: ActionTypes.RECEIVE_TRACKS,
+      actionType: ActionTypes.RECEIVE_TRACKS,
       tracks: tracks
     });
   }

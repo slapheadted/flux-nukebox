@@ -13,7 +13,6 @@ function getStateFromStores() {
 
 var TrackTable = React.createClass({
     getInitialState: function() {
-        TrackActionCreators.fetchTracks();
         return {
             tracks: []
         }
@@ -21,6 +20,7 @@ var TrackTable = React.createClass({
 
     componentDidMount: function() {
         TrackStore.addChangeListener(this._onChange);
+        TrackActionCreators.fetchTracks();
     },
 
     componentWillUnmount: function() {
@@ -28,7 +28,6 @@ var TrackTable = React.createClass({
     },
 
     render: function() {
-        console.log('render', this.state.tracks)
         var rows = [];
         if (this.state.tracks.length) {
             this.state.tracks.forEach(function(track) {
@@ -51,7 +50,6 @@ var TrackTable = React.createClass({
     },
 
     _onChange: function() {
-        console.log('onChange')
         this.setState(getStateFromStores())
     }
 });
