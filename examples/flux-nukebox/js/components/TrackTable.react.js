@@ -17,9 +17,8 @@ function filterBySearch(track, needle) {
         track.album && track.album.indexOf(needle) > -1
     ) {
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
 var TrackTable = React.createClass({
@@ -41,14 +40,12 @@ var TrackTable = React.createClass({
     render: function() {
         var rows = [];
         
-        if (this.state.tracks.length) {
-            this.state.tracks.forEach(function(track) {
-            	filterBySearch(track, this.props.filterText) && rows.push(<TrackRow track={track} key={track._id} />);
-            }.bind(this));
-        }
+        this.state.tracks.forEach(function(track) {
+        	filterBySearch(track, this.props.filterText) && rows.push(<TrackRow track={track} key={track._id} />);
+        }.bind(this));
         
         return (
-            <table>
+            <table className="table table-hover">
                 <thead>
                     <tr>
                         <th>Artist</th>

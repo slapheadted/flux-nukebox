@@ -19,14 +19,18 @@ var SearchBar = React.createClass({
 
     render: function() {
         return (
-            <form>
-            	<label>Search:
-            		<input
-            			type="text"
-            			placeholder="Artist, Album, Track..."
-            			value={this.props.filterText}
-            			ref="filterTextInput"
-            			onChange={this.handleChange} /></label>
+            <form className="form-inline" role="form">
+                <div className="form-group">
+                	<label>Search:
+                		<input
+                			type="text"
+                            className="form-control"
+                			placeholder="Artist, Album, Track..."
+                			value={this.props.filterText}
+                			ref="filterTextInput"
+                			onChange={this.handleChange} />
+                    </label>
+                </div>
             </form>
         );
     }
