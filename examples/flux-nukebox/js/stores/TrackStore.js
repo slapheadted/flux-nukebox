@@ -16,32 +16,7 @@ var merge = require('react/lib/merge');
 
 var CHANGE_EVENT = 'change';
 
-var _tracks = {};
-
-/**
- * Fetch all tracks.
- */
-function fetch(needle) {
-  return $.ajax({
-    url: nukeboxConfig.apiUrl + 'needle'
-  }).done(function(tracks) {
-    _tracks = tracks;
-    TrackStore.emitChange();
-  })
-  // Hand waving here -- not showing how this interacts with XHR or persistent
-  // server-side storage.
-  // _tracks = [{
-  //   id: 1,
-  //   title: "Hey Jude"
-  // }, {
-  //   id: 2,
-  //   title: "Come Together"
-  // }];
-}
-
-function play(id) {
-  // to do
-}
+var _tracks = [];
 
 var TrackStore = merge(EventEmitter.prototype, {
 
@@ -77,8 +52,8 @@ AppDispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.actionType) {
-    case TrackConstants.RECEIVE_RAW_TRACKS:
-      _tracks = action.rawTracks;
+    case TrackConstants.RECEIVE_TRACKS:
+      _tracks = action.tracks;
       break;
     default:
       return true;

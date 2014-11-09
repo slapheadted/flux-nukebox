@@ -2,7 +2,8 @@
 
 var React = require('react');
 var TrackRow = require('./TrackRow.react');
-var TrackStore = require('../stores/TrackStore')
+var TrackStore = require('../stores/TrackStore');
+var TrackActionCreators = require('../actions/TrackActionCreators');
 
 function getStateFromStores() {
     return {
@@ -12,7 +13,10 @@ function getStateFromStores() {
 
 var TrackTable = React.createClass({
     getInitialState: function() {
-        return getStateFromStores();
+        TrackActionCreators.fetchTracks();
+        return {
+            tracks: []
+        }
     },
 
     componentDidMount: function() {
@@ -24,11 +28,14 @@ var TrackTable = React.createClass({
     },
 
     render: function() {
+        console.log('render', this.state.tracks)
         var rows = [];
-        this.state.tracks.forEach(function(track) {
-        	// if (track.title.indexOf(this.props.filterText) === -1) { return; }
-            rows.push(<TrackRow track={track} key={track.id} />);
-        }.bind(this));
+        if (this.state.tracks.length) {
+            this.state.tracks.forEach(function(track) {
+            	// if (track.title.indexOf(this.props.filterText) === -1) { return; }
+                rows.push(<TrackRow track={track} key={track._id} />);
+            }.bind(this));
+        }
         return (
             <table>
                 <thead>
@@ -44,6 +51,7 @@ var TrackTable = React.createClass({
     },
 
     _onChange: function() {
+        console.log('onChange')
         this.setState(getStateFromStores())
     }
 });

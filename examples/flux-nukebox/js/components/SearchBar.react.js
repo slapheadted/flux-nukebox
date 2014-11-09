@@ -1,14 +1,20 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+var TrackActionCreators = require('../actions/TrackActionCreators');
 
 var SearchBar = React.createClass({
 	handleChange: function() {
-		console.log('text', this.props.filterText)
-		TrackActions.fetchTracks(this.props.filterText)
-		this.props.onUserInput(
-			this.refs.filterTextInput.getDOMNode().value
-		);
+        var self = this;
+
+        this.props.onUserInput(
+            this.refs.filterTextInput.getDOMNode().value
+        );
+
+        clearTimeout(window.searchBarDelay)
+        window.searchBarDelay = setTimeout(function() {
+            TrackActionCreators.fetchTracks(self.props.filterText)
+        }, 300);
 	},
 
     render: function() {

@@ -1,9 +1,5 @@
-var  nukebox = {};
+var  nukeboxConfig = {
+	apiUrl: 'http://localhost:8080/api/'
+};
 
-nukebox.config = {
-	apiUrl: 'http://localhost:3000/api/'
-}
-
-module.exports = function() {
-	return nukebox;
-}
+module.exports = nukeboxConfig;

@@ -12,10 +12,17 @@
 
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var TrackConstants = require('../constants/TrackConstants');
-var TrackStore = require('../stores/TrackStore');
+var NukeboxWebAPIUtils = require('../utils/NukeboxWebAPIUtils');
 
 var ActionTypes = TrackConstants.ActionTypes;
 
 module.exports = {
-
+	fetchTracks: function(needle) {
+		NukeboxWebAPIUtils.getTracks(needle);
+		AppDispatcher.handleServerAction({
+			type: ActionTypes.FETCH_TRACKS,
+			needle: needle
+		});
+	}
 };
+

@@ -11,15 +11,22 @@
  */
 
 var TrackServerActionCreators = require('../actions/TrackServerActionCreators');
+var $ = require('jquery');
+var nukeboxConfig = require('../../nukebox.config.js');
 
 module.exports = {
 
-  getTracks: function(needle) {
-    // simulate retrieving data from a database
-    var rawTracks = JSON.parse(localStorage.getItem('tracks'));
+  	getTracks: function(needle) {
+  		needle = needle || ''
+		// simulate retrieving data from a database
+		// var rawTracks = JSON.parse(localStorage.getItem('tracks'));
 
-    // simulate success callback
-    TrackServerActionCreators.receiveTracks(rawTracks);
-  }
+		$.ajax({
+			url: nukeboxConfig.apiUrl + 'music/' + needle,
+			dataType: 'jsonp'
+		}).done(function(tracks) {
+			TrackServerActionCreators.receiveTracks(tracks);
+		});
+  	}
 
 };
